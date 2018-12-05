@@ -18,6 +18,70 @@ void    header()
     ft_printf("%s%c%s\n", VL, 'P', VL);
     ft_printf("%s%s%s\n\n", LB, HL, RB);
 
-    ft_printf("%s%s123", CBWHITE, CBLACK);
+    int     i;
 
+    i = 0;
+    while (i++ < 4)
+    {
+        ft_printf("%s%s        %s%s        ", CBWHITE, CBLACK, CBBLACK, CWHITE);
+        ft_printf("%s%s        %s%s        ", CBWHITE, CBLACK, CBBLACK, CWHITE);
+        ft_printf("%s%s        %s%s        ", CBWHITE, CBLACK, CBBLACK, CWHITE);
+        ft_printf("%s%s        %s%s        \n", CBWHITE, CBLACK, CBBLACK, CWHITE);
+    }
+    i = 0;
+    while (i++ < 4)
+    {
+        ft_printf("%s%s        %s%s        ", CBBLACK, CWHITE, CBWHITE, CBLACK);
+        ft_printf("%s%s        %s%s        ", CBBLACK, CWHITE, CBWHITE, CBLACK);
+        ft_printf("%s%s        %s%s        ", CBBLACK, CWHITE, CBWHITE, CBLACK);
+        ft_printf("%s%s        %s%s        \n", CBBLACK, CWHITE, CBWHITE, CBLACK);
+    }
+    i = 0;
+    while (i++ < 4)
+    {
+        ft_printf("%s%s        %s%s        ", CBWHITE, CBLACK, CBBLACK, CWHITE);
+        ft_printf("%s%s        %s%s        ", CBWHITE, CBLACK, CBBLACK, CWHITE);
+        ft_printf("%s%s        %s%s        ", CBWHITE, CBLACK, CBBLACK, CWHITE);
+        ft_printf("%s%s        %s%s        \n", CBWHITE, CBLACK, CBBLACK, CWHITE);
+    }
+    i = 0;
+    while (i++ < 4)
+    {
+        ft_printf("%s%s        %s%s        ", CBBLACK, CWHITE, CBWHITE, CBLACK);
+        ft_printf("%s%s        %s%s        ", CBBLACK, CWHITE, CBWHITE, CBLACK);
+        ft_printf("%s%s        %s%s        ", CBBLACK, CWHITE, CBWHITE, CBLACK);
+        ft_printf("%s%s        %s%s        \n", CBBLACK, CWHITE, CBWHITE, CBLACK);
+    }
+    i = 0;
+    while (i++ < 4)
+    {
+        ft_printf("%s%s        %s%s        ", CBWHITE, CBLACK, CBBLACK, CWHITE);
+        ft_printf("%s%s        %s%s        ", CBWHITE, CBLACK, CBBLACK, CWHITE);
+        ft_printf("%s%s        %s%s        ", CBWHITE, CBLACK, CBBLACK, CWHITE);
+        ft_printf("%s%s        %s%s        \n", CBWHITE, CBLACK, CBBLACK, CWHITE);
+    }
+    i = 0;
+    while (i++ < 4)
+    {
+        ft_printf("%s%s        %s%s        ", CBBLACK, CWHITE, CBWHITE, CBLACK);
+        ft_printf("%s%s        %s%s        ", CBBLACK, CWHITE, CBWHITE, CBLACK);
+        ft_printf("%s%s        %s%s        ", CBBLACK, CWHITE, CBWHITE, CBLACK);
+        ft_printf("%s%s        %s%s        \n", CBBLACK, CWHITE, CBWHITE, CBLACK);
+    }
+    i = 0;
+    while (i++ < 4)
+    {
+        ft_printf("%s%s        %s%s        ", CBWHITE, CBLACK, CBBLACK, CWHITE);
+        ft_printf("%s%s        %s%s        ", CBWHITE, CBLACK, CBBLACK, CWHITE);
+        ft_printf("%s%s        %s%s        ", CBWHITE, CBLACK, CBBLACK, CWHITE);
+        ft_printf("%s%s        %s%s        \n", CBWHITE, CBLACK, CBBLACK, CWHITE);
+    }
+    i = 0;
+    while (i++ < 4)
+    {
+        ft_printf("%s%s        %s%s        ", CBBLACK, CWHITE, CBWHITE, CBLACK);
+        ft_printf("%s%s        %s%s        ", CBBLACK, CWHITE, CBWHITE, CBLACK);
+        ft_printf("%s%s        %s%s        ", CBBLACK, CWHITE, CBWHITE, CBLACK);
+        ft_printf("%s%s        %s%s         %s\n", CBBLACK, CWHITE, CBWHITE, CBLACK, CBBLACK);
+    }
 }
