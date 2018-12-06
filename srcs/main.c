@@ -22,7 +22,10 @@ int		main(int argc, char **argv)
 	if (argc == 1)
 	{
 		ft_bzero(&chess, sizeof(t_chess *));
-		header();
+		chess.to_move = 1;
+		chess.type_of_board = 1;
+		create_board(&chess);
+		game(&chess);
 	}
 	else
 		ft_printf("Usage: ./chess\n");

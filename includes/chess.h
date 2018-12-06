@@ -38,14 +38,34 @@
 # define TC "\e(0\x77\e(B" // 203 Top Cross
 # define VL "\e(0\x78\e(B" // 186 Vertical Line
 
-typedef struct  s_chess
+typedef struct          s_notation
 {
-    char        **board;
-    int         to_move;
-    int         number_of_moves;
-    char        **moves;
-}               t_chess;
+    char                **move;
+    struct s_notation   *next;
+}                       t_notation;
 
-void    header();
+typedef struct          s_chess
+{
+    char                **board;
+    int                 to_move;
+    int                 number_of_moves;
+    int                 type_of_board;
+    t_notation          notation;
+}                       t_chess;
+
+typedef struct          s_move
+{
+    int                 if_check;
+    int                 if_mate;
+    int                 if_take;
+    int                 if_promote;
+    int                 kingside_castle;
+    int                 queenside_castle;
+}                       t_move;
+
+void                    header();
+void                    draw_board(t_chess chess);
+void	                create_board(t_chess *chess);
+void	                game(t_chess *chess);
 
 #endif
