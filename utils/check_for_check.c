@@ -12,38 +12,40 @@
 
 #include "chess.h"
 
-void	check_for_mate(char **board)
+int			check_for_check(t_chess *chess)
 {
 	int		i;
 	int		j;
+	int		add;
 	int		check;
 
 	i = 0;
 	check = 0;
-	while (board[i])
+	if (chess->to_move == 1)
+		add = 0;
+	else
+		add = 32;
+	while (chess->board[i])
 	{
 		j = 0;
-		while (board[i][j])
+		while (chess->board[i][j])
 		{
-			if (board[i][j] == 'B')
-				check += check_bishop(board, i, j);
-			if (board[i][j] == 'R')
-				check += check_rook(board, i, j);
-			if (board[i][j] == 'Q')
+			if (chess->board[i][j] == 'B' + add)
+				check += check_bishop(chess->board, i, j, 'k' - add);
+			if (chess->board[i][j] == 'R' + add)
+				check += check_rook(chess->board, i, j, 'k' - add);
+			if (chess->board[i][j] == 'Q' + add)
 			{
-				check += check_bishop(board, i, j);
-				check += check_rook(board, i, j);
+				check += check_bishop(chess->board, i, j, 'k' - add);
+				check += check_rook(chess->board, i, j, 'k' - add);
 			}
-			if (board[i][j] == 'P' && i > 0)
-				check += check_pawn(board, i, j);
+			if (chess->board[i][j] == 'P' + add && i > 0)
+				check += check_pawn(chess->board, i, j, 'k' - add);
 			if (check != 0)
-			{
-				ft_putstr("Success\n");
-				return ;
-			}
+				return (1);
 			++j;
 		}
 		++i;
 	}
-	ft_putstr("Fail\n");
+	return (-1);
 }
