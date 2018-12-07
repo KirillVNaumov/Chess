@@ -47,7 +47,10 @@ void    draw_board(t_chess chess)
     while (chess.board[++i])
     {
         j = -1;
+        if (chess.to_move % 2 == 1)
             ft_printf("%s%d ", CWHITE, 8 - i);
+        else
+            ft_printf("%s%d ", CWHITE, i + 1);
         while (chess.board[i][++j])
         {
             if (chess.board[i][j] >= 65 && chess.board[i][j] <= 90)
@@ -66,5 +69,8 @@ void    draw_board(t_chess chess)
         }
         ft_printf("\n");
     }
-    ft_printf("%s  abcdefgh\n\n", CWHITE);
+    if (chess.to_move % 2 == 1)
+        ft_printf("%s  abcdefgh\n\n", CWHITE);
+    else
+        ft_printf("%s  hgfedcba\n\n", CWHITE);
 }

@@ -17,6 +17,8 @@ void    set_move(t_move *move)
     move->queenside_castle = 0;
     move->dest.x = 0;
     move->dest.y = 0;
+    move->from.x = 0;
+    move->from.y = 0;
     move->piece = '-';
     move->specification = '-';
 }
@@ -33,7 +35,7 @@ void	game(t_chess *chess)
         set_move(&move);
         if (!ft_strcmp(line, "exit"))
             return ;
-		else if (parsing_input(line, &move) == -1)
+		else if (parsing_input(line, &move, chess) == -1)
 			ft_printf("%s: Input Error\n", line);
         else if (check_if_valid(chess, &move) == -1)
 			ft_printf("%s: Move is not valid\n", line);
@@ -41,8 +43,8 @@ void	game(t_chess *chess)
         {
             apply_move(chess, &move);
             reverse_board(chess);
-    	    draw_board(*chess);
             chess->to_move++;
+    	    draw_board(*chess);
         }
 	}
 }

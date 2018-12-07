@@ -26,6 +26,9 @@ void    regular_chess_board(t_chess *chess)
     chess->board[0][4] = 'k';
     chess->board[7][3] = 'Q';
     chess->board[7][4] = 'K';
+
+    chess->board[1][0] = '.';
+    chess->board[6][0] = '.';
 }
 
 void    chess_360_board(t_chess *chess)

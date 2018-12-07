@@ -1,14 +1,15 @@
 # include "chess.h"
 
-int     check_knight_move(t_chess *chess, t_move *move, int i, int j)
+int     check_knight_move(t_move *move, int i, int j)
 {
-    int     x;
-    int     y;
-    t_chess *temp;
-    t_move  *temp1;
-    x = i;
-    y = j;
-    temp = chess;
-    temp1 = move;
-    return (1);
+    if ((move->dest.y == i + 1 && move->dest.x == j + 2) || \
+        (move->dest.y == i + 1 && move->dest.x == j - 2) || \
+        (move->dest.y == i - 1 && move->dest.x == j + 2) || \
+        (move->dest.y == i - 1 && move->dest.x == j - 2) || \
+        (move->dest.y == i + 2 && move->dest.x == j + 1) || \
+        (move->dest.y == i + 2 && move->dest.x == j - 1) || \
+        (move->dest.y == i - 2 && move->dest.x == j + 1) || \
+        (move->dest.y == i - 2 && move->dest.x == j - 1))
+        return (1);
+    return (-1);
 }

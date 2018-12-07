@@ -61,6 +61,7 @@ typedef struct          s_chess
 
 typedef struct          s_move
 {
+    t_point             from;
     t_point             dest;
     char                piece;
     char                specification;
@@ -77,7 +78,7 @@ void                    draw_board(t_chess chess);
 void	                create_board(t_chess *chess);
 void	                game(t_chess *chess);
 void                    apply_move(t_chess *chess, t_move *move);
-int                     parsing_input(char *line, t_move *move);
+int                     parsing_input(char *line, t_move *move, t_chess *chess);
 int                     check_if_valid(t_chess *chess, t_move *move);
 void                    reverse_board(t_chess *chess);
 int                     define_move(t_chess *chess);
@@ -85,7 +86,7 @@ int                     check_rook_move(t_chess *chess, t_move *move, int i, int
 int                     check_bishop_move(t_chess *chess, t_move *move, int i, int j);
 int                     check_queen_move(t_chess *chess, t_move *move, int i, int j);
 int                     check_king_move(t_chess *chess, t_move *move, int i, int j);
-int                     check_pawn_move(t_chess *chess, t_move *move, int i, int j);
-int                     check_knight_move(t_chess *chess, t_move *move, int i, int j);
+int                     check_pawn_move(t_move *move, int i, int j);
+int                     check_knight_move(t_move *move, int i, int j);
 
 #endif

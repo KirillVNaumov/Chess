@@ -12,13 +12,21 @@
 
 #include "chess.h"
 
-int     check_pawn_move(t_chess *chess, t_move *move, int i, int j)
+int     check_pawn_move(t_move *move, int i, int j)
 {
-    t_chess *temp;
-    t_move *temp1;
-    temp = chess;
-    temp1 = move;
-    i = 0;
-    j = 0;
-    return (1);
+    if (move->if_takes == 1)
+    {
+        if ((move->dest.x == j + 1 && move->dest.y == i - 1) || \
+            (move->dest.x == j - 1 && move->dest.y == i - 1))
+            return (1);
+        return (-1);
+    }
+    if (move->if_takes == 0)
+    {
+        if ((move->dest.x == j && move->dest.y == i - 1) || \
+            (move->dest.x == j && move->dest.y == i - 2 && i == 6))
+            return (1);
+        return (-1);
+    }
+    return (-1);
 }

@@ -28,14 +28,22 @@ void	parse_for_specification_and_takes(char **line, t_move *move)
 	}
 }
 
-int		parse_for_destination(char **line, t_move *move)
+int		parse_for_destination(char **line, t_move *move, t_chess *chess)
 {
+	if (move->piece >= 'a' && move->piece <= 'h' && move->if_takes == 0)
+	{
+		move->dest.x = move->piece - 'a';
+		if (chess->to_move % 2 == 0)
+			move->dest.x = 8 - move->dest.x - 1;
+	}
 	if ((move->piece >= 'a' && move->piece <= 'h' && \
 		move->if_takes == 1) || move->piece < 'a' || move->piece > 'h')
 	{
 		if (**line >= 'a' && **line <= 'h')
 		{
 			move->dest.x = (**line) - 'a';
+			if (chess->to_move % 2 == 0)
+				move->dest.x = 8 - move->dest.x - 1;
 			++(*line);
 		}
 		else
@@ -44,7 +52,10 @@ int		parse_for_destination(char **line, t_move *move)
 	if (**line >= '1' && **line <= '8')
 	{
 		move->dest.y = (**line) - '0';
-		move->dest.y = 8 - move->dest.y;
+		if (chess->to_move % 2 == 1)
+			move->dest.y = 8 - move->dest.y;
+		else
+			move->dest.y = move->dest.y - 1;
 		++(*line);
 	}
 	else
@@ -68,7 +79,7 @@ void	parse_for_check_and_mate(char **line, t_move *move)
 	}
 }
 
-int     parsing_input(char *line, t_move *move)
+int     parsing_input(char *line, t_move *move, t_chess *chess)
 {
     if (!ft_strcmp(line, "O-O"))
 		move->kingside_castle = 1;
@@ -79,7 +90,7 @@ int     parsing_input(char *line, t_move *move)
 	if (parse_for_piece(&line, move) == -1)
 		return (-1);
 	parse_for_specification_and_takes(&line, move);
-	if (parse_for_destination(&line, move) == -1)
+	if (parse_for_destination(&line, move, chess) == -1)
 		return (-1);
 	parse_for_check_and_mate(&line, move);
 	if (*line == '\0')
