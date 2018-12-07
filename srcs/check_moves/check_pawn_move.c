@@ -12,9 +12,13 @@
 
 #include "chess.h"
 
-int		check_pawn(char **board, int i, int j, char king)
+int     check_pawn_move(t_chess *chess, t_move *move, int i, int j)
 {
-	if (board[i - 1][j - 1] == king || board[i - 1][j + 1] == king)
-		return (1);
-	return (0);
+    t_chess *temp;
+    t_move *temp1;
+    temp = chess;
+    temp1 = move;
+    i = 0;
+    j = 0;
+    return (1);
 }

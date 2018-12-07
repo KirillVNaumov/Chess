@@ -43,7 +43,8 @@ int		parse_for_destination(char **line, t_move *move)
 	}
 	if (**line >= '1' && **line <= '8')
 	{
-		move->dest.y = (**line) - '1';
+		move->dest.y = (**line) - '0';
+		move->dest.y = 8 - move->dest.y;
 		++(*line);
 	}
 	else
@@ -51,7 +52,7 @@ int		parse_for_destination(char **line, t_move *move)
 	return (1);
 }
 
-void	parse_for_check_amd_mate(char **line, t_move *move)
+void	parse_for_check_and_mate(char **line, t_move *move)
 {
 	if (**line == '+')
 	{
@@ -80,7 +81,7 @@ int     parsing_input(char *line, t_move *move)
 	parse_for_specification_and_takes(&line, move);
 	if (parse_for_destination(&line, move) == -1)
 		return (-1);
-	parse_for_check_amd_mate(&line, move);
+	parse_for_check_and_mate(&line, move);
 	if (*line == '\0')
 		return (1);
 	return (-1);

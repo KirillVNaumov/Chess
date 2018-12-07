@@ -22,10 +22,10 @@ void    regular_chess_board(t_chess *chess)
     chess->board[0][5] = 'b';
     chess->board[7][2] = 'B';
     chess->board[7][5] = 'B';
-    chess->board[0][3] = 'k';
-    chess->board[0][4] = 'q';
-    chess->board[7][3] = 'K';
-    chess->board[7][4] = 'Q';
+    chess->board[0][3] = 'q';
+    chess->board[0][4] = 'k';
+    chess->board[7][3] = 'Q';
+    chess->board[7][4] = 'K';
 }
 
 void    chess_360_board(t_chess *chess)

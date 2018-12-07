@@ -1,5 +1,12 @@
 #include "chess.h"
 
+int     define_move(t_chess *chess)
+{
+    if (chess->to_move % 2 == 1)
+		return (0);
+    return (32);
+}
+
 void    set_move(t_move *move)
 {
     move->if_check = 0;
@@ -11,6 +18,7 @@ void    set_move(t_move *move)
     move->dest.x = 0;
     move->dest.y = 0;
     move->piece = '-';
+    move->specification = '-';
 }
 
 void	game(t_chess *chess)
@@ -32,7 +40,9 @@ void	game(t_chess *chess)
         else
         {
             apply_move(chess, &move);
+            reverse_board(chess);
     	    draw_board(*chess);
+            chess->to_move++;
         }
 	}
 }

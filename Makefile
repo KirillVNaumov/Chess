@@ -1,4 +1,4 @@
-SRCS = ./srcs/*
+SRCS = ./srcs/*.c ./srcs/check_moves/*.c
 
 INCLUDES = -I ./includes
 

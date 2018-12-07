@@ -12,50 +12,51 @@
 
 #include "chess.h"
 
-int		check_rook(char **board, int i, int j, char king)
+int		check_rook_move(t_chess *chess, t_move *move, int i, int j)
 {
 	int		start_i;
 	int		start_j;
 
 	start_i = i;
 	start_j = j;
-	while (i >= 0)
-	{
-		if (board[i][j] == king)
-			return (1);
-		if (board[i][j] != '.' && (i != start_i || j != start_j))
-			break ;
-		--i;
-	}
+	if (move->dest.x == j && move->dest.y > i)
+		while (chess->board[i])
+		{
+			if (move->dest.y == i)
+				return (1);
+			if (chess->board[i][j] != '.' && (i != start_i || j != start_j))
+				break ;
+			++i;
+		}
 	i = start_i;
+	if (move->dest.x == j && move->dest.y < i)
+		while (i != -1)
+		{
+			if (move->dest.y == i)
+				return (1);
+			if (chess->board[i][j] != '.' && (i != start_i || j != start_j))
+				break ;
+			--i;
+		}
 	j = start_j;
-	while (board[i])
-	{
-		if (board[i][j] == king)
-			return (1);
-		if (board[i][j] != '.' && (i != start_i || j != start_j))
-			break ;
-		++i;
-	}
-	i = start_i;
+	if (move->dest.x > j && move->dest.y == i)
+		while (chess->board[i][j])
+		{
+			if (move->dest.x == j)
+				return (1);
+			if (chess->board[i][j] != '.' && (i != start_i || j != start_j))
+				break ;
+			++j;
+		}
 	j = start_j;
-	while (j >= 0)
-	{
-		if (board[i][j] == king)
-			return (1);
-		if (board[i][j] != '.' && (i != start_i || j != start_j))
-			break ;
-		--j;
-	}
-	i = start_i;
-	j = start_j;
-	while (board[i][j])
-	{
-		if (board[i][j] == king)
-			return (1);
-		if (board[i][j] != '.' && (i != start_i || j != start_j))
-			break ;
-		++j;
-	}
-	return (0);
+	if (move->dest.x < j && move->dest.y == i)
+		while (j != -1)
+		{
+			if (move->dest.x == j)
+				return (1);
+			if (chess->board[i][j] != '.' && (i != start_i || j != start_j))
+				break ;
+			--j;
+		}
+	return (-1);
 }
