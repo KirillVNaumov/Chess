@@ -6,7 +6,7 @@
 /*   By: knaumov <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/10 13:05:51 by knaumov           #+#    #+#             */
-/*   Updated: 2018/12/03 19:23:37 by knaumov          ###   ########.fr       */
+/*   Updated: 2018/12/05 22:22:29 by knaumov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <wchar.h>
-# include "get_next_line.h"
 # include "ft_printf/ft_printf.h"
 
 int					ft_isspace(int c);
@@ -96,5 +95,6 @@ int					get_next_line(const int fd, char **line);
 char				*ft_strcon(char **arr, char *c);
 void				ft_clean_arr(char ***arr);
 char				**ft_create_arr(int height, int width);
+void				ft_clean_int_arr(int ***map);
 
 #endif

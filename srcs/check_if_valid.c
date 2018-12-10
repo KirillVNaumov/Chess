@@ -1,5 +1,14 @@
 # include "chess.h"
 
+int     check_en_passant(t_chess *chess, t_move *move)
+{
+    if (move->piece >= 'a' && move->piece <= 'h')
+    {
+        
+    }
+    return (-1);
+}
+
 int     check_takes(t_chess *chess, t_move *move)
 {
     if (move->if_takes == 1)
@@ -117,6 +126,8 @@ int     check_if_valid(t_chess *chess, t_move *move)
             return (-1);
         return (1);
     }
+    if (check_en_passant(chess, move) == 1)
+        return (1);
     if (check_takes(chess, move) == -1)
         return (-1);
     if (check_for_move(chess, move) == -1)

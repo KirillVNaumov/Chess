@@ -50,12 +50,24 @@ typedef struct          s_notation
     struct s_notation   *next;
 }                       t_notation;
 
-typedef struct          s_chess
+typedef struct          s_info
 {
-    char                **board;
-    int                 to_move;
-    int                 number_of_moves;
-    int                 type_of_board;
+    int                 a2_move;
+    int                 b2_move;
+    int                 c2_move;
+    int                 d2_move;
+    int                 e2_move;
+    int                 f2_move;
+    int                 g2_move;
+    int                 h2_move;
+    int                 a7_move;
+    int                 b7_move;
+    int                 c7_move;
+    int                 d7_move;
+    int                 e7_move;
+    int                 f7_move;
+    int                 g7_move;
+    int                 h7_move;
     int                 rook_a8_move;
     int                 rook_h8_move;
     int                 rook_a1_move;
@@ -64,7 +76,16 @@ typedef struct          s_chess
     int                 white_king_move;
     t_point             black_king_pos;
     t_point             white_king_pos;
+}                       t_info;
+
+typedef struct          s_chess
+{
+    char                **board;
+    int                 to_move;
+    int                 number_of_moves;
+    int                 type_of_board;
     t_notation          notation;
+    t_info              info;
 }                       t_chess;
 
 typedef struct          s_move

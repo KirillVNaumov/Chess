@@ -7,14 +7,30 @@ int     define_move(t_chess *chess)
     return (32);
 }
 
-void    set_for_castling(t_chess *chess)
+void    set_info(t_chess *chess)
 {
-    chess->rook_a1_move = 0;
-    chess->rook_a8_move = 0;
-    chess->rook_h1_move = 0;
-    chess->rook_h8_move = 0;
-    chess->black_king_move = 0;
-    chess->white_king_move = 0;
+    chess->info.rook_a1_move = 0;
+    chess->info.rook_a8_move = 0;
+    chess->info.rook_h1_move = 0;
+    chess->info.rook_h8_move = 0;
+    chess->info.black_king_move = 0;
+    chess->info.white_king_move = 0;
+    chess->info.a2_move = 0;
+    chess->info.b2_move = 0;
+    chess->info.c2_move = 0;
+    chess->info.d2_move = 0;
+    chess->info.e2_move = 0;
+    chess->info.f2_move = 0;
+    chess->info.g2_move = 0;
+    chess->info.h2_move = 0;
+    chess->info.a7_move = 0;
+    chess->info.b7_move = 0;
+    chess->info.c7_move = 0;
+    chess->info.d7_move = 0;
+    chess->info.e7_move = 0;
+    chess->info.f7_move = 0;
+    chess->info.g7_move = 0;
+    chess->info.h7_move = 0;
 }
 
 void    find_kings(t_chess *chess)
@@ -30,13 +46,13 @@ void    find_kings(t_chess *chess)
         {
             if (chess->board[i][j] == 'K')
             {
-                chess->white_king_pos.x = j;
-                chess->white_king_pos.y = i;
+                chess->info.white_king_pos.x = j;
+                chess->info.white_king_pos.y = i;
             }
             if (chess->board[i][j] == 'k')
             {
-                chess->black_king_pos.x = j;
-                chess->black_king_pos.y = i;    
+                chess->info.black_king_pos.x = j;
+                chess->info.black_king_pos.y = i;    
             }
         }
     }
@@ -65,7 +81,7 @@ void	game(t_chess *chess)
 
 	draw_board(*chess);
     ft_bzero(&move, sizeof(t_move *));
-    set_for_castling(chess);
+    set_info(chess);
 	while (get_next_line(0, &line))
 	{
         find_kings(chess);

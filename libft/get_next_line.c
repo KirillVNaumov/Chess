@@ -3,132 +3,59 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgonor <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: knaumov <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/01/10 17:06:42 by dgonor            #+#    #+#             */
-/*   Updated: 2018/01/10 17:08:27 by dgonor           ###   ########.fr       */
+/*   Created: 2018/12/05 22:25:21 by knaumov           #+#    #+#             */
+/*   Updated: 2018/12/05 22:25:23 by knaumov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "libft.h"
 
-int		len(char *s, int c)
+int		read_from_fd_into_stock(int const fd, char **stock)
 {
-	int		i;
+	static char	buff[BUFF_SIZE + 1] = { '\n' };
+	int			read_bytes;
+	char		*nstr;
 
-	i = 0;
-	while (s[i] != '\0' && s[i] != (char)c)
-		i++;
-	return (i);
+	read_bytes = read(fd, buff, BUFF_SIZE);
+	if (read_bytes > 0)
+	{
+		buff[read_bytes] = '\0';
+		nstr = ft_strjoin(*stock, buff);
+		if (!nstr)
+			return (-1);
+		free(*stock);
+		*stock = nstr;
+	}
+	return (read_bytes);
 }
 
-char	*ft_str_ljoin(char **s1, char **s2)
+int		get_next_line(int const fd, char **line)
 {
-	char	*without_leaks;
+	static char	*stock = NULL;
+	char		*endl_index;
+	int			ret;
 
-	without_leaks = NULL;
-	if (!s1 && !s2)
-		return (NULL);
-	else if (!*s1 && *s2)
+	if (!stock && (stock = (char *)ft_memalloc(sizeof(char))) == NULL)
+		return (-1);
+	endl_index = ft_strchr(stock, '\n');
+	while (endl_index == NULL)
 	{
-		without_leaks = *s2;
-		*s2 = NULL;
-	}
-	else if (!*s2 && *s1)
-	{
-		without_leaks = *s1;
-		*s1 = NULL;
-	}
-	else
-	{
-		without_leaks = ft_strjoin(*s1, *s2);
-		ft_strdel(s1);
-		ft_strdel(s2);
-	}
-	return (without_leaks);
-}
-
-void	get_tail(const int fd, char *buf, t_line **head)
-{
-	t_line	*tail;
-	t_line	*ptr;
-	char	*tmp;
-	int		start;
-
-	tail = NULL;
-	ptr = *head;
-	start = len(buf, '\n') + 1;
-	while (ptr && ptr->fd != fd)
-		ptr = ptr->next;
-	if (ptr == NULL || *head == NULL)
-	{
-		tail = (t_line*)malloc(sizeof(t_line) * 1);
-		tail->fd = fd;
-		tail->next = *head ? *head : NULL;
-		if (!(tail->str = ft_strsub(buf, start, ft_strlen(buf) - start)))
-			ft_memdel((void**)tail);
-		*head = tail;
-	}
-	if (ptr)
-	{
-		tmp = ptr->str;
-		ptr->str = ft_strsub(buf, start, ft_strlen(buf) - start);
-		tmp ? ft_strdel(&tmp) : 0;
-	}
-}
-
-int		reading(int fd, char **line, t_line **head)
-{
-	int		ret;
-	char	buf[BUFF_SIZE + 1];
-	char	*tmp;
-
-	while ((ret = read(fd, buf, BUFF_SIZE)) > 0)
-	{
-		buf[ret] = '\0';
-		if (ft_strchr(buf, '\n') != NULL)
+		ret = read_from_fd_into_stock(fd, &stock);
+		if (ret == 0)
 		{
-			tmp = ft_strsub(buf, 0, len(buf, '\n'));
-			*line = ft_str_ljoin(line, &tmp);
-			get_tail(fd, buf, head);
-			return (1);
+			if ((endl_index = ft_strchr(stock, '\0')) == stock)
+				return (0);
 		}
+		else if (ret < 0)
+			return (-1);
 		else
-		{
-			tmp = ft_strdup(buf);
-			*line = ft_str_ljoin(line, &tmp);
-		}
+			endl_index = ft_strchr(stock, '\n');
 	}
-	if (ret < 0)
+	*line = ft_strsub(stock, 0, endl_index - stock);
+	if (!*line)
 		return (-1);
-	return (*line ? 1 : 0);
-}
-
-int		get_next_line(const int fd, char **line)
-{
-	static	t_line	*head = NULL;
-	t_line			*ptr;
-
-	if (fd < 0 || line == NULL)
-		return (-1);
-	*line = NULL;
-	if (head)
-	{
-		ptr = head;
-		while (ptr && ptr->fd != fd)
-			ptr = ptr->next;
-		if (ptr && ptr->str && ft_strchr(ptr->str, '\n') != NULL)
-		{
-			*line = ft_strsub(ptr->str, 0, len(ptr->str, '\n'));
-			get_tail(fd, ptr->str, &head);
-			return (1);
-		}
-		if (ptr && ptr->str && !ft_strchr(ptr->str, '\n')
-			&& !ft_strequ(ptr->str, ""))
-		{
-			*line = ptr->str;
-			ptr->str = NULL;
-		}
-	}
-	return (reading(fd, line, &head));
+	stock = ft_update(stock, ft_strdup(endl_index + 1));
+	return (1);
 }

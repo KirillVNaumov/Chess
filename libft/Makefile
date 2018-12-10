@@ -6,7 +6,7 @@
 #    By: knaumov <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/09/10 09:50:35 by knaumov           #+#    #+#              #
-#    Updated: 2018/12/03 18:34:03 by knaumov          ###   ########.fr        #
+#    Updated: 2018/12/05 22:00:25 by knaumov          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -84,6 +84,7 @@ FILES = ./ft_atoi.c \
 		./ft_strcon.c \
 		./ft_clean_arr.c \
 		./ft_create_arr.c \
+		./ft_clean_int_arr.c \
 		./ft_printf/adding_minus.c \
 		./ft_printf/adding_plus.c \
 		./ft_printf/adding_precision_number.c \
@@ -213,7 +214,8 @@ OBJ =   ./ft_atoi.o \
 		./parse_flags.o \
 		./printing_wide_string.o \
 		./ft_clean_arr.o \
-		./ft_create_arr.o
+		./ft_create_arr.o \
+		./ft_clean_int_arr.o
 
 RESET = \033[0m
 RED = \033[0;31m

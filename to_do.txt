@@ -5,4 +5,6 @@
 5. Draws (!!!)
 	- Stalemate
 	- Insufficient Material
-	- Three fold repetition
+	- Threefold repetition
+	- Draw by acceptence
+	- Fifty-move rule
