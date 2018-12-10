@@ -63,6 +63,24 @@ int		parse_for_destination(char **line, t_move *move, t_chess *chess)
 	return (1);
 }
 
+int		parse_for_promotion(char **line, t_move *move)
+{
+	if (((**line) == '=' && move->dest.y != 0) || ((**line) != '=' && move->dest.y == 0))
+		return (-1);
+	if ((**line) == '=' && move->dest.y == 0)
+	{
+		if (move->piece < 'a' || move->piece > 'h')
+			return (-1);
+		++(*line);
+		if (**line == 'R' || **line == 'B' || **line == 'N' || **line == 'Q')
+			move->promotion = **line;
+		else
+			return (-1);
+		++(*line);
+	}
+	return (1);
+}
+
 void	parse_for_check_and_mate(char **line, t_move *move)
 {
 	if (**line == '+')
@@ -91,6 +109,8 @@ int     parsing_input(char *line, t_move *move, t_chess *chess)
 		return (-1);
 	parse_for_specification_and_takes(&line, move);
 	if (parse_for_destination(&line, move, chess) == -1)
+		return (-1);
+	if (parse_for_promotion(&line,move) == -1)
 		return (-1);
 	parse_for_check_and_mate(&line, move);
 	if (*line == '\0')

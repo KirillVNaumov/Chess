@@ -65,7 +65,7 @@ int     check_for_move(t_chess *chess, t_move *move)
             }
             if (move->piece == 'K' && chess->board[i][j] == move->piece + add)
             {
-                if (check_king_move(chess, move, i, j) == 1)
+                if (check_king_move(move, i, j) == 1)
                 {
                     ++count;
                     move->from.x = j;
@@ -105,6 +105,18 @@ int     check_for_move(t_chess *chess, t_move *move)
 
 int     check_if_valid(t_chess *chess, t_move *move)
 {
+    if (move->kingside_castle == 1)
+    {
+        if (check_kingside_castle(chess) == -1)
+            return (-1);
+        return (1);
+    }
+    if (move->queenside_castle == 1)
+    {
+        if (check_queenside_castle(chess) == -1)
+            return (-1);
+        return (1);
+    }
     if (check_takes(chess, move) == -1)
         return (-1);
     if (check_for_move(chess, move) == -1)

@@ -56,6 +56,14 @@ typedef struct          s_chess
     int                 to_move;
     int                 number_of_moves;
     int                 type_of_board;
+    int                 rook_a8_move;
+    int                 rook_h8_move;
+    int                 rook_a1_move;
+    int                 rook_h1_move;
+    int                 black_king_move;
+    int                 white_king_move;
+    t_point             black_king_pos;
+    t_point             white_king_pos;
     t_notation          notation;
 }                       t_chess;
 
@@ -68,7 +76,7 @@ typedef struct          s_move
     int                 if_check;
     int                 if_mate;
     int                 if_takes;
-    int                 if_promote;
+    char                promotion;
     int                 kingside_castle;
     int                 queenside_castle;
 }                       t_move;
@@ -85,8 +93,12 @@ int                     define_move(t_chess *chess);
 int                     check_rook_move(t_chess *chess, t_move *move, int i, int j);
 int                     check_bishop_move(t_chess *chess, t_move *move, int i, int j);
 int                     check_queen_move(t_chess *chess, t_move *move, int i, int j);
-int                     check_king_move(t_chess *chess, t_move *move, int i, int j);
+int                     check_king_move(t_move *move, int i, int j);
 int                     check_pawn_move(t_move *move, int i, int j);
 int                     check_knight_move(t_move *move, int i, int j);
+int                     check_kingside_castle(t_chess *chess);
+int                     check_queenside_castle(t_chess *chess);
+void                    apply_kingside_castle(t_chess *chess);
+void                    apply_queenside_castle(t_chess *chess);
 
 #endif

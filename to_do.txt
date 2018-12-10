@@ -1,0 +1,8 @@
+1. En passant (1.d5  exd6e.p.)
+2. Check
+3. Mate
+4. Notation
+5. Draws (!!!)
+	- Stalemate
+	- Insufficient Material
+	- Three fold repetition
