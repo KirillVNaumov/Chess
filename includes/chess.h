@@ -15,6 +15,11 @@
 
 # include "../libft/libft.h"
 
+# include <dirent.h>
+# include <sys/types.h>
+# include <sys/stat.h>
+# include <fcntl.h>
+
 # define CLEAN "\e[1;1H\e[2J"
 # define CRED  "\x1B[31m"
 # define CBLUE  "\x1B[34m"
@@ -52,22 +57,8 @@ typedef struct          s_notation
 
 typedef struct          s_info
 {
-    int                 a2_move;
-    int                 b2_move;
-    int                 c2_move;
-    int                 d2_move;
-    int                 e2_move;
-    int                 f2_move;
-    int                 g2_move;
-    int                 h2_move;
-    int                 a7_move;
-    int                 b7_move;
-    int                 c7_move;
-    int                 d7_move;
-    int                 e7_move;
-    int                 f7_move;
-    int                 g7_move;
-    int                 h7_move;
+    int                 white_pawns[8];
+    int                 black_pawns[8];
     int                 rook_a8_move;
     int                 rook_h8_move;
     int                 rook_a1_move;
@@ -100,12 +91,14 @@ typedef struct          s_move
     char                promotion;
     int                 kingside_castle;
     int                 queenside_castle;
+    int                 en_passant;
 }                       t_move;
 
 void                    header();
 void                    draw_board(t_chess chess);
 void	                create_board(t_chess *chess);
-void	                game(t_chess *chess);
+void	                game(t_chess *chess, int file);
+void                    write_to_a_file(int file, char *line, t_chess *chess);
 void                    apply_move(t_chess *chess, t_move *move);
 int                     parsing_input(char *line, t_move *move, t_chess *chess);
 int                     check_if_valid(t_chess *chess, t_move *move);
@@ -117,6 +110,13 @@ int                     check_queen_move(t_chess *chess, t_move *move, int i, in
 int                     check_king_move(t_move *move, int i, int j);
 int                     check_pawn_move(t_move *move, int i, int j);
 int                     check_knight_move(t_move *move, int i, int j);
+int             		check_for_check(char **board);
+int			            check_king_if_hit(char **board, int i, int j);
+int			            check_knight_if_hit(char **board, int i, int j);
+int			            check_pawn_if_hit(char **board, int i, int j);
+int     		    	check_bishop_if_hit(char **board, int i, int j);
+int		        	    check_rook_if_hit(char **board, int i, int j);
+int                     check_queen_if_hit(char **board, int i, int j);
 int                     check_kingside_castle(t_chess *chess);
 int                     check_queenside_castle(t_chess *chess);
 void                    apply_kingside_castle(t_chess *chess);

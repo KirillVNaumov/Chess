@@ -9,28 +9,21 @@ int     define_move(t_chess *chess)
 
 void    set_info(t_chess *chess)
 {
+    int i;
+
     chess->info.rook_a1_move = 0;
     chess->info.rook_a8_move = 0;
     chess->info.rook_h1_move = 0;
     chess->info.rook_h8_move = 0;
     chess->info.black_king_move = 0;
     chess->info.white_king_move = 0;
-    chess->info.a2_move = 0;
-    chess->info.b2_move = 0;
-    chess->info.c2_move = 0;
-    chess->info.d2_move = 0;
-    chess->info.e2_move = 0;
-    chess->info.f2_move = 0;
-    chess->info.g2_move = 0;
-    chess->info.h2_move = 0;
-    chess->info.a7_move = 0;
-    chess->info.b7_move = 0;
-    chess->info.c7_move = 0;
-    chess->info.d7_move = 0;
-    chess->info.e7_move = 0;
-    chess->info.f7_move = 0;
-    chess->info.g7_move = 0;
-    chess->info.h7_move = 0;
+    chess->number_of_moves = 0;
+    i = 0;
+    while (i < 8)
+        chess->info.white_pawns[i++] = 0; 
+    i = 0;
+    while (i < 8)
+        chess->info.black_pawns[i++] = 0; 
 }
 
 void    find_kings(t_chess *chess)
@@ -69,12 +62,13 @@ void    set_move(t_move *move)
     move->dest.y = 0;
     move->from.x = 0;
     move->from.y = 0;
+    move->en_passant = 0;
     move->piece = '-';
     move->specification = '-';
     move->promotion = '-';
 }
 
-void	game(t_chess *chess)
+void	game(t_chess *chess, int file)
 {
 	char    *line;
     t_move  move;
@@ -96,7 +90,9 @@ void	game(t_chess *chess)
         {
             apply_move(chess, &move);
             reverse_board(chess);
-            chess->to_move++;
+            ++chess->to_move;
+            ++chess->number_of_moves;
+            write_to_a_file(file, line, chess);
     	    draw_board(*chess);
         }
 	}

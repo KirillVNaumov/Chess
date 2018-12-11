@@ -2,10 +2,18 @@
 
 int     check_en_passant(t_chess *chess, t_move *move)
 {
-    if (move->piece >= 'a' && move->piece <= 'h')
-    {
-        
-    }
+    if (move->piece >= 'a' && move->piece <= 'h' && \
+        move->dest.y == 2 && move->if_takes == 1)
+        if ((chess->to_move % 2 == 1 && chess->info.black_pawns[7 - move->dest.x] == 1) || \
+            (chess->to_move % 2 == 0 && chess->info.white_pawns[7 - move->dest.x] == 1))
+        {
+            move->en_passant = 1;
+            move->from.y = 3;
+            move->from.x = move->piece - 'a';
+            if (chess->to_move % 2 == 0)
+                move->from.x = 7 - move->from.x;
+            return (1);
+        }
     return (-1);
 }
 
