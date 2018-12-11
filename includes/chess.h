@@ -110,7 +110,7 @@ int                     check_queen_move(t_chess *chess, t_move *move, int i, in
 int                     check_king_move(t_move *move, int i, int j);
 int                     check_pawn_move(t_move *move, int i, int j);
 int                     check_knight_move(t_move *move, int i, int j);
-int             		check_for_check(char **board);
+int             		check_for_check(char **board, int add, int king);
 int			            check_king_if_hit(char **board, int i, int j);
 int			            check_knight_if_hit(char **board, int i, int j);
 int			            check_pawn_if_hit(char **board, int i, int j);

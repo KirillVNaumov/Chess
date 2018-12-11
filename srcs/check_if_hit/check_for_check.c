@@ -10,9 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "check_mate.h"
+#include "chess.h"
 
-void	check_for_mate(char **board)
+void	check_for_check(char **board, int add, char king)
 {
 	int		i;
 	int		j;
@@ -25,25 +25,19 @@ void	check_for_mate(char **board)
 		j = 0;
 		while (board[i][j])
 		{
-			if (board[i][j] == 'B')
-				check += check_bishop(board, i, j);
-			if (board[i][j] == 'R')
-				check += check_rook(board, i, j);
-			if (board[i][j] == 'Q')
-			{
-				check += check_bishop(board, i, j);
-				check += check_rook(board, i, j);
-			}
-			if (board[i][j] == 'P' && i > 0)
-				check += check_pawn(board, i, j);
+			if (board[i][j] == 'B' + add)
+				check += check_bishop_if_hit(board, i, j, king);
+			if (board[i][j] == 'R' + add)
+				check += check_rook_if_hit(board, i, j, king);
+			if (board[i][j] == 'Q' + add)
+				check += check_queen_if_hit(board, i, j, king);
+			if (board[i][j] == 'P' + add && i > 0)
+				check += check_pawn_if_hit(board, i, j, king);
 			if (check != 0)
-			{
-				ft_putstr("Success\n");
-				return ;
-			}
+				return (1);
 			++j;
 		}
 		++i;
 	}
-	ft_putstr("Fail\n");
+	return (0);
 }

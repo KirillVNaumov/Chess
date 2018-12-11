@@ -10,9 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "check_mate.h"
+#include "chess.h"
 
-int		check_bishop(char **board, int i, int j)
+int		check_bishop_if_hit(char **board, int i, int j, char king)
 {
 	int		start_i;
 	int		start_j;
@@ -21,7 +21,7 @@ int		check_bishop(char **board, int i, int j)
 	start_j = j;
 	while (i >= 0 && j >= 0)
 	{
-		if (board[i][j] == 'K')
+		if (board[i][j] == king)
 			return (1);
 		if (board[i][j] != '.' && (i != start_i || j != start_j))
 			break ;
@@ -32,7 +32,7 @@ int		check_bishop(char **board, int i, int j)
 	j = start_j;
 	while (i >= 0 && board[i][j])
 	{
-		if (board[i][j] == 'K')
+		if (board[i][j] == king)
 			return (1);
 		if (board[i][j] != '.' && (i != start_i || j != start_j))
 			break ;
@@ -43,7 +43,7 @@ int		check_bishop(char **board, int i, int j)
 	j = start_j;
 	while (board[i] && j >= 0)
 	{
-		if (board[i][j] == 'K')
+		if (board[i][j] == king)
 			return (1);
 		if (board[i][j] != '.' && (i != start_i || j != start_j))
 			break ;
@@ -54,7 +54,7 @@ int		check_bishop(char **board, int i, int j)
 	j = start_j;
 	while (board[i] && board[i][j])
 	{
-		if (board[i][j] == 'K')
+		if (board[i][j] == king)
 			return (1);
 		if (board[i][j] != '.' && (i != start_i || j != start_j))
 			break ;
