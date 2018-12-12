@@ -1,4 +1,4 @@
-SRCS = ./srcs/*.c ./srcs/check_moves/*.c
+SRCS = ./srcs/*.c ./srcs/check_moves/*.c ./srcs/check_if_hit/*.c
 
 INCLUDES = -I ./includes
 
@@ -21,7 +21,7 @@ all: $(EXEC)
 
 $(EXEC):
 	@echo "$(GREEN)Making objects files for $(GREEN_EXTRA)$(LIB_CHESS)$(RESET)"
-	@gcc -Wall -Wextra -Werror $(SRCS) $(INCLUDES) -c -g
+	@gcc -Wall -Wextra -Werror $(SRCS) $(INCLUDES) -c -g -fsanitize=undefined
 	@echo "$(GREEN)Compiling $(GREEN_EXTRA)$(LIB_CHESS)$(RESET)"
 	@ar rc $(LIB_CHESS) *.o
 	@ranlib $(LIB_CHESS)
@@ -30,7 +30,7 @@ $(EXEC):
 	@mv *.o $(OBJ)
 	# @make -C libft
 	@echo "$(GREEN)Compiling executable $(GREEN_EXTRA)$(EXEC)$(RESET)"
-	@gcc -Wall -Wextra -Werror $(LIB_CHESS) $(LIBFT) $(INCLUDES) -o $(EXEC) -g
+	@gcc -Wall -Wextra -Werror $(LIB_CHESS) $(LIBFT) $(INCLUDES) -o $(EXEC) -g -fsanitize=undefined
 	@echo "$(BLUE_EXTRA)$(EXEC)$(BLUE): Complete$(RESET)"
 
 clean:

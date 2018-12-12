@@ -94,47 +94,41 @@ void		set_rook_moves(t_chess *chess)
 		chess->info.black_king_move = 1;
 }
 
-void		apply_en_passant(t_chess *chess, t_move *move)
+char	**apply_en_passant(t_chess *chess, t_move *move, char **arr)
 {
-	chess->board[move->from.y][move->from.x] = '.';
-	chess->board[move->dest.y + 1][move->dest.x] = '.';
-	chess->board[move->dest.y][move->dest.x] = 'P' + define_move(chess);
+	arr[move->from.y][move->from.x] = '.';
+	arr[move->dest.y + 1][move->dest.x] = '.';
+	arr[move->dest.y][move->dest.x] = 'P' + define_move(chess);
+	return (arr);
+}
+
+char		**change_map(t_chess *chess, t_move *move)
+{
+	char		**arr;
+
+	arr = copy_board(chess->board);
+	if (move->kingside_castle == 1)
+		arr = apply_kingside_castle(chess, arr);
+	if (move->queenside_castle == 1)
+		arr = apply_queenside_castle(chess, arr);
+	if (move->en_passant == 1)
+		arr = apply_en_passant(chess, move, arr);
+	if (move->queenside_castle || move->kingside_castle || move->en_passant)
+		return (arr);
+	arr[move->from.y][move->from.x] = '.';
+	if (move->piece < 'a' || move->piece > 'h')
+		arr[move->dest.y][move->dest.x] = move->piece + define_move(chess);
+	else
+		arr[move->dest.y][move->dest.x] = 'P' + define_move(chess);
+	if (move->promotion != '-')
+		arr[move->dest.y][move->dest.x] = move->promotion + define_move(chess);
+	return (arr);
 }
 
 void        apply_move(t_chess *chess, t_move *move)
 {
-	if (move->kingside_castle == 1)
-		apply_kingside_castle(chess);
-	if (move->queenside_castle == 1)
-		apply_queenside_castle(chess);
-	if (move->en_passant == 1)
-		apply_en_passant(chess, move);
-	if (move->queenside_castle || move->kingside_castle || move->en_passant)
-		return ;
 	update_pawn_moves(chess);
 	set_pawns_moves(chess, move);
-	chess->board[move->from.y][move->from.x] = '.';
-	if (move->piece < 'a' || move->piece > 'h')
-		chess->board[move->dest.y][move->dest.x] = move->piece + define_move(chess);
-	else
-		chess->board[move->dest.y][move->dest.x] = 'P' + define_move(chess);
-	if (move->promotion != '-')
-		chess->board[move->dest.y][move->dest.x] = move->promotion + define_move(chess);
+	chess->board = change_map(chess, move);
 	set_rook_moves(chess);
-	// ft_printf("chess->info.white_pawns[0] = %d\n", chess->info.white_pawns[0]);
-	// ft_printf("chess->info.white_pawns[1] = %d\n", chess->info.white_pawns[1]);
-	// ft_printf("chess->info.white_pawns[2] = %d\n", chess->info.white_pawns[2]);
-	// ft_printf("chess->info.white_pawns[3] = %d\n", chess->info.white_pawns[3]);
-	// ft_printf("chess->info.white_pawns[4] = %d\n", chess->info.white_pawns[4]);
-	// ft_printf("chess->info.white_pawns[5] = %d\n", chess->info.white_pawns[5]);
-	// ft_printf("chess->info.white_pawns[6] = %d\n", chess->info.white_pawns[6]);
-	// ft_printf("chess->info.white_pawns[7] = %d\n", chess->info.white_pawns[7]);
-	// ft_printf("chess->info.black_pawns[7] = %d\n", chess->info.black_pawns[7]);
-	// ft_printf("chess->info.black_pawns[6] = %d\n", chess->info.black_pawns[6]);
-	// ft_printf("chess->info.black_pawns[5] = %d\n", chess->info.black_pawns[5]);
-	// ft_printf("chess->info.black_pawns[4] = %d\n", chess->info.black_pawns[4]);
-	// ft_printf("chess->info.black_pawns[3] = %d\n", chess->info.black_pawns[3]);
-	// ft_printf("chess->info.black_pawns[2] = %d\n", chess->info.black_pawns[2]);
-	// ft_printf("chess->info.black_pawns[1] = %d\n", chess->info.black_pawns[1]);
-	// ft_printf("chess->info.black_pawns[0] = %d\n", chess->info.black_pawns[0]);
 }

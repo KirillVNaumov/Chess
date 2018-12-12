@@ -16,11 +16,18 @@ void	parse_for_specification_and_takes(char **line, t_move *move)
 {
 	if (ft_strlen(*line) > 2)
 		if (!(move->piece >= 'a' && move->piece <= 'h'))
-			if ((**line >= 'a' && **line <= 'h') || (**line >= '1' && **line <= '8'))
+		{
+			if (**line >= 'a' && **line <= 'h')
 			{
-				move->specification = **line;
+				move->specification_letter = **line;
 				++(*line);
 			}
+			if (**line >= '1' && **line <= '8')
+			{
+				move->specification_number = **line;
+				++(*line);
+			}
+		}
 	if (**line == 'x')
 	{
 		move->if_takes = 1;

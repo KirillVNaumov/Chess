@@ -12,54 +12,49 @@
 
 #include "chess.h"
 
-int		check_bishop_if_hit(char **board, int i, int j, char king)
+int		check_bishop_if_hit(char **board, t_point tracker, t_point king)
 {
-	int		start_i;
-	int		start_j;
+	t_point		temp;
 
-	start_i = i;
-	start_j = j;
-	while (i >= 0 && j >= 0)
+	temp = tracker;
+	while (temp.y >= 0 && temp.x >= 0)
 	{
-		if (board[i][j] == king)
+		if (temp.y == king.y && temp.x == king.x)
 			return (1);
-		if (board[i][j] != '.' && (i != start_i || j != start_j))
+		if (board[temp.y][temp.x] != '.' && (temp.y != tracker.y || temp.x != tracker.x))
 			break ;
-		--i;
-		--j;
+		--temp.y;
+		--temp.x;
 	}
-	i = start_i;
-	j = start_j;
-	while (i >= 0 && board[i][j])
+	temp = tracker;
+	while (temp.y >= 0 && board[temp.y][temp.x])
 	{
-		if (board[i][j] == king)
+		if (temp.y == king.y && temp.x == king.x)
 			return (1);
-		if (board[i][j] != '.' && (i != start_i || j != start_j))
+		if (board[temp.y][temp.x] != '.' && (temp.y != tracker.y || temp.x != tracker.x))
 			break ;
-		--i;
-		++j;
+		--temp.y;
+		++temp.x;
 	}
-	i = start_i;
-	j = start_j;
-	while (board[i] && j >= 0)
+	temp = tracker;
+	while (board[temp.y] && temp.x >= 0)
 	{
-		if (board[i][j] == king)
+		if (temp.y == king.y && temp.x == king.x)
 			return (1);
-		if (board[i][j] != '.' && (i != start_i || j != start_j))
+		if (board[temp.y][temp.x] != '.' && (temp.y != tracker.y || temp.x != tracker.x))
 			break ;
-		--j;
-		++i;
+		--temp.x;
+		++temp.y;
 	}
-	i = start_i;
-	j = start_j;
-	while (board[i] && board[i][j])
+	temp = tracker;
+	while (board[temp.y] && board[temp.y][temp.x])
 	{
-		if (board[i][j] == king)
+		if (temp.y == king.y && temp.x == king.x)
 			return (1);
-		if (board[i][j] != '.' && (i != start_i || j != start_j))
+		if (board[temp.y][temp.x] != '.' && (temp.y != tracker.y || temp.x != tracker.x))
 			break ;
-		++j;
-		++i;
+		++temp.x;
+		++temp.y;
 	}
 	return (0);
 }

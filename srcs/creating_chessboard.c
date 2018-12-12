@@ -7,7 +7,7 @@ void    regular_chess_board(t_chess *chess)
     i = -1;
     while (++i < 8)
     {
-        chess->board[1][i] = 'p';
+        // chess->board[1][i] = 'p';
         chess->board[6][i] = 'P';
     }
     chess->board[0][0] = 'r';
@@ -26,6 +26,8 @@ void    regular_chess_board(t_chess *chess)
     chess->board[0][4] = 'k';
     chess->board[7][3] = 'Q';
     chess->board[7][4] = 'K';
+
+    // chess->board[3][3] = 'K';
 }
 
 void    chess_360_board(t_chess *chess)

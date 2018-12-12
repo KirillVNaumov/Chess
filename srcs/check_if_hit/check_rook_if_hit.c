@@ -12,50 +12,45 @@
 
 #include "chess.h"
 
-int		check_rook_if_hit(char **board, int i, int j, char king)
+int		check_rook_if_hit(char **board, t_point tracker, t_point king)
 {
-	int		start_i;
-	int		start_j;
+	t_point		temp;
 
-	start_i = i;
-	start_j = j;
-	while (i >= 0)
+	temp = tracker;
+	while (temp.y >= 0)
 	{
-		if (board[i][j] == king)
+		if (temp.y == king.y && temp.x == king.x)
 			return (1);
-		if (board[i][j] != '.' && (i != start_i || j != start_j))
+		if (board[temp.y][temp.x] != '.' && (temp.y != tracker.y || temp.x != tracker.x))
 			break ;
-		--i;
+		--temp.y;
 	}
-	i = start_i;
-	j = start_j;
-	while (board[i])
+	temp = tracker;
+	while (board[temp.y])
 	{
-		if (board[i][j] == king)
+		if (temp.y == king.y && temp.x == king.x)
 			return (1);
-		if (board[i][j] != '.' && (i != start_i || j != start_j))
+		if (board[temp.y][temp.x] != '.' && (temp.y != tracker.y || temp.x != tracker.x))
 			break ;
-		++i;
+		++temp.y;
 	}
-	i = start_i;
-	j = start_j;
-	while (j >= 0)
+	temp = tracker;
+	while (temp.x >= 0)
 	{
-		if (board[i][j] == king)
+		if (temp.y == king.y && temp.x == king.x)
 			return (1);
-		if (board[i][j] != '.' && (i != start_i || j != start_j))
+		if (board[temp.y][temp.x] != '.' && (temp.y != tracker.y || temp.x != tracker.x))
 			break ;
-		--j;
+		--temp.x;
 	}
-	i = start_i;
-	j = start_j;
-	while (board[i][j])
+	temp = tracker;
+	while (board[temp.y][temp.x])
 	{
-		if (board[i][j] == king)
+		if (temp.y == king.y && temp.x == king.x)
 			return (1);
-		if (board[i][j] != '.' && (i != start_i || j != start_j))
+		if (board[temp.y][temp.x] != '.' && (temp.y != tracker.y || temp.x != tracker.x))
 			break ;
-		++j;
+		++temp.x;
 	}
 	return (0);
 }

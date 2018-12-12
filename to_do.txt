@@ -6,3 +6,4 @@
 	- Threefold repetition
 	- Draw by acceptence
 	- Fifty-move rule
+4. Specification

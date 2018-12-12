@@ -26,29 +26,29 @@ void    set_info(t_chess *chess)
         chess->info.black_pawns[i++] = 0; 
 }
 
-void    find_kings(t_chess *chess)
+t_point     find_kings(char **board, char king)
 {
     int     i;
     int     j;
+    t_point pos;
 
     i = -1;
-    while (chess->board[++i])
+    pos.x = 0;
+    pos.y = 0;
+    while (board[++i])
     {
         j = -1;
-        while (chess->board[i][++j])
+        while (board[i][++j])
         {
-            if (chess->board[i][j] == 'K')
+            if (board[i][j] == king)
             {
-                chess->info.white_king_pos.x = j;
-                chess->info.white_king_pos.y = i;
-            }
-            if (chess->board[i][j] == 'k')
-            {
-                chess->info.black_king_pos.x = j;
-                chess->info.black_king_pos.y = i;    
+                pos.x = j;
+                pos.y = i;
+                return (pos);
             }
         }
     }
+    return (pos);
 }
 
 void    set_move(t_move *move)
@@ -64,7 +64,8 @@ void    set_move(t_move *move)
     move->from.y = 0;
     move->en_passant = 0;
     move->piece = '-';
-    move->specification = '-';
+    move->specification_number = '-';
+    move->specification_letter = '-';
     move->promotion = '-';
 }
 
@@ -78,15 +79,16 @@ void	game(t_chess *chess, int file)
     set_info(chess);
 	while (get_next_line(0, &line))
 	{
-        find_kings(chess);
+        chess->info.white_king_pos = find_kings(chess->board, 'K');
+        chess->info.black_king_pos = find_kings(chess->board, 'k');
         set_move(&move);
         if (!ft_strcmp(line, "exit"))
             return ;
 		else if (parsing_input(line, &move, chess) == -1)
-			ft_printf("%s: Input Error\n", line);
+			ft_printf("%s: Invalid: Input Error\n", line);
         else if (check_if_valid(chess, &move) == -1)
-			ft_printf("%s: Move is not valid\n", line);
-        else
+			ft_printf("%s: Invalid: Move does not exist\n", line);
+        else if (check(chess, &move, line) != -1)
         {
             apply_move(chess, &move);
             reverse_board(chess);

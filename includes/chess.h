@@ -84,7 +84,8 @@ typedef struct          s_move
     t_point             from;
     t_point             dest;
     char                piece;
-    char                specification;
+    char                specification_letter;
+    char                specification_number;
     int                 if_check;
     int                 if_mate;
     int                 if_takes;
@@ -94,32 +95,50 @@ typedef struct          s_move
     int                 en_passant;
 }                       t_move;
 
+// DRAWING
 void                    header();
 void                    draw_board(t_chess chess);
+
+// CREATING THE BOARD
 void	                create_board(t_chess *chess);
-void	                game(t_chess *chess, int file);
-void                    write_to_a_file(int file, char *line, t_chess *chess);
-void                    apply_move(t_chess *chess, t_move *move);
+void                    reverse_board(t_chess *chess);
+
+//CHECKING INPUT
 int                     parsing_input(char *line, t_move *move, t_chess *chess);
 int                     check_if_valid(t_chess *chess, t_move *move);
-void                    reverse_board(t_chess *chess);
-int                     define_move(t_chess *chess);
+
+// CHECKING MOVES
 int                     check_rook_move(t_chess *chess, t_move *move, int i, int j);
 int                     check_bishop_move(t_chess *chess, t_move *move, int i, int j);
 int                     check_queen_move(t_chess *chess, t_move *move, int i, int j);
 int                     check_king_move(t_move *move, int i, int j);
 int                     check_pawn_move(t_move *move, int i, int j);
 int                     check_knight_move(t_move *move, int i, int j);
-int             		check_for_check(char **board, int add, int king);
-int			            check_king_if_hit(char **board, int i, int j);
-int			            check_knight_if_hit(char **board, int i, int j);
-int			            check_pawn_if_hit(char **board, int i, int j);
-int     		    	check_bishop_if_hit(char **board, int i, int j);
-int		        	    check_rook_if_hit(char **board, int i, int j);
-int                     check_queen_if_hit(char **board, int i, int j);
+
+// CHECKING IF CHECK
+int                     check(t_chess *chess, t_move *move, char *line);
+int             		check_for_check(char **board, int add, t_point king);
+int			            check_king_if_hit(char **board, t_point tracker, t_point king);
+int			            check_knight_if_hit(char **board, t_point tracker, t_point king);
+int			            check_pawn_if_hit(t_point tracker, t_point king);
+int     		    	check_bishop_if_hit(char **board, t_point tracker, t_point king);
+int		        	    check_rook_if_hit(char **board, t_point tracker, t_point king);
+int                     check_queen_if_hit(char **board, t_point tracker, t_point king);
+
+// CASTLING
 int                     check_kingside_castle(t_chess *chess);
 int                     check_queenside_castle(t_chess *chess);
-void                    apply_kingside_castle(t_chess *chess);
-void                    apply_queenside_castle(t_chess *chess);
+char	                **apply_kingside_castle(t_chess *chess,  char **arr);
+char	                **apply_queenside_castle(t_chess *chess, char **arr);
+// GAME
+void	                game(t_chess *chess, int file);
+void                    write_to_a_file(int file, char *line, t_chess *chess);
+void                    apply_move(t_chess *chess, t_move *move);
+
+//UTILS
+int                     define_move(t_chess *chess);
+t_point                 find_kings(char **board, char king);
+char            		**change_map(t_chess *chess, t_move *move);
+char                    **copy_board(char **board);
 
 #endif

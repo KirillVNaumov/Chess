@@ -113,7 +113,7 @@ int     check_for_move(t_chess *chess, t_move *move)
         return (-1);
     if (count > 1)
     {
-        if (move->specification == '-')
+        if (move->specification_letter == '-' && move->specification_number == '-')
             return (-1);
         // check_for_specification(chess, move);
     }

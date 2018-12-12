@@ -48,29 +48,29 @@ void    draw_board(t_chess chess)
     {
         j = -1;
         if (chess.to_move % 2 == 1)
-            ft_printf("%s%d ", CWHITE, 8 - i);
+            ft_printf("%2s%d ", CWHITE, 8 - i);
         else
-            ft_printf("%s%d ", CWHITE, i + 1);
+            ft_printf("%2s%d ", CWHITE, i + 1);
         while (chess.board[i][++j])
         {
             if (chess.board[i][j] >= 65 && chess.board[i][j] <= 90)
-                ft_printf("%s", CRED);
+                ft_printf("%2s", CRED);
             else if (chess.board[i][j] >= 97 && chess.board[i][j] <= 122)
-                ft_printf("%s", CBLUE);
+                ft_printf("%2s", CBLUE);
             else
-                ft_printf("%s.", CWHITE);
+                ft_printf("%s%2c", CWHITE, '.');
             if (chess.board[i][j] == 'P' || chess.board[i][j] == 'p')
-                ft_printf("p");
+                ft_printf("%2c", 'p');
             else if (chess.board[i][j] >= 65 && chess.board[i][j] <= 90)
-                ft_printf("%c", chess.board[i][j]);
+                ft_printf("%2c", chess.board[i][j]);
             else if (chess.board[i][j] >= 97 && chess.board[i][j] <= 122)
-                ft_printf("%c", chess.board[i][j] - 32);
+                ft_printf("%2c", chess.board[i][j] - 32);
             // ft_printf("%c", chess.board[i][j]);
         }
         ft_printf("\n");
     }
     if (chess.to_move % 2 == 1)
-        ft_printf("%s  abcdefgh\n\n", CWHITE);
+        ft_printf("%s   a b c d e f g h\n\n", CWHITE);
     else
-        ft_printf("%s  hgfedcba\n\n", CWHITE);
+        ft_printf("%s   h g f e d c b a\n\n", CWHITE);
 }

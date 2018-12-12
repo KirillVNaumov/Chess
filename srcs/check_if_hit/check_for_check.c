@@ -12,32 +12,29 @@
 
 #include "chess.h"
 
-void	check_for_check(char **board, int add, char king)
+int				check_for_check(char **board, int add, t_point king)
 {
-	int		i;
-	int		j;
-	int		check;
+	t_point		tracker;
+	int			check;
 
-	i = 0;
+	tracker.y = -1;
 	check = 0;
-	while (board[i])
+	while (++tracker.y < 8)
 	{
-		j = 0;
-		while (board[i][j])
+		tracker.x = 0;
+		while (++tracker.x < 8)
 		{
-			if (board[i][j] == 'B' + add)
-				check += check_bishop_if_hit(board, i, j, king);
-			if (board[i][j] == 'R' + add)
-				check += check_rook_if_hit(board, i, j, king);
-			if (board[i][j] == 'Q' + add)
-				check += check_queen_if_hit(board, i, j, king);
-			if (board[i][j] == 'P' + add && i > 0)
-				check += check_pawn_if_hit(board, i, j, king);
+			if (board[tracker.y][tracker.x] == 'B' + add)
+				check += check_bishop_if_hit(board, tracker, king);
+			if (board[tracker.y][tracker.x] == 'R' + add)
+				check += check_rook_if_hit(board, tracker, king);
+			if (board[tracker.y][tracker.x] == 'Q' + add)
+				check += check_queen_if_hit(board, tracker, king);
+			if (board[tracker.y][tracker.x] == 'P' + add)
+				check += check_pawn_if_hit(tracker, king);
 			if (check != 0)
-				return (1);
-			++j;
+				return (-1);
 		}
-		++i;
 	}
-	return (0);
+	return (1);
 }

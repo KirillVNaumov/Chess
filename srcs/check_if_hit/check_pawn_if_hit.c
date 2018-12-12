@@ -12,9 +12,11 @@
 
 #include "chess.h"
 
-int		check_pawn_if_hit(char **board, int i, int j, char king)
+int		check_pawn_if_hit(t_point tracker, t_point king)
 {
-	if (board[i - 1][j - 1] == king || board[i - 1][j + 1] == king)
+	if (tracker.x + 1 == king.x && tracker.y + 1 == king.y)
+		return (1);
+	if (tracker.x - 1 == king.x && tracker.y + 1 == king.y)
 		return (1);
 	return (0);
 }
