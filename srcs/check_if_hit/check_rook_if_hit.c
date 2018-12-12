@@ -26,7 +26,7 @@ int		check_rook_if_hit(char **board, t_point tracker, t_point king)
 		--temp.y;
 	}
 	temp = tracker;
-	while (board[temp.y])
+	while (temp.y <= 7)
 	{
 		if (temp.y == king.y && temp.x == king.x)
 			return (1);
@@ -44,7 +44,7 @@ int		check_rook_if_hit(char **board, t_point tracker, t_point king)
 		--temp.x;
 	}
 	temp = tracker;
-	while (board[temp.y][temp.x])
+	while (temp.x <= 7)
 	{
 		if (temp.y == king.y && temp.x == king.x)
 			return (1);

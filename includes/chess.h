@@ -117,10 +117,10 @@ int                     check_knight_move(t_move *move, int i, int j);
 
 // CHECKING IF CHECK
 int                     check(t_chess *chess, t_move *move, char *line);
-int             		check_for_check(char **board, int add, t_point king);
+int             		check_for_check(char **board, int add, t_point king, int move);
 int			            check_king_if_hit(char **board, t_point tracker, t_point king);
 int			            check_knight_if_hit(char **board, t_point tracker, t_point king);
-int			            check_pawn_if_hit(t_point tracker, t_point king);
+int			            check_pawn_if_hit(t_point tracker, t_point king, int move, char king_piece);
 int     		    	check_bishop_if_hit(char **board, t_point tracker, t_point king);
 int		        	    check_rook_if_hit(char **board, t_point tracker, t_point king);
 int                     check_queen_if_hit(char **board, t_point tracker, t_point king);

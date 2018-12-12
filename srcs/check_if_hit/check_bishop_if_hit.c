@@ -27,7 +27,7 @@ int		check_bishop_if_hit(char **board, t_point tracker, t_point king)
 		--temp.x;
 	}
 	temp = tracker;
-	while (temp.y >= 0 && board[temp.y][temp.x])
+	while (temp.y >= 0 && temp.x <= 7)
 	{
 		if (temp.y == king.y && temp.x == king.x)
 			return (1);
@@ -37,7 +37,7 @@ int		check_bishop_if_hit(char **board, t_point tracker, t_point king)
 		++temp.x;
 	}
 	temp = tracker;
-	while (board[temp.y] && temp.x >= 0)
+	while (temp.y <= 7 && temp.x >= 0)
 	{
 		if (temp.y == king.y && temp.x == king.x)
 			return (1);
@@ -47,7 +47,7 @@ int		check_bishop_if_hit(char **board, t_point tracker, t_point king)
 		++temp.y;
 	}
 	temp = tracker;
-	while (board[temp.y] && board[temp.y][temp.x])
+	while (temp.y <= 7 && temp.x <= 7)
 	{
 		if (temp.y == king.y && temp.x == king.x)
 			return (1);

@@ -12,7 +12,7 @@
 
 #include "chess.h"
 
-int				check_for_check(char **board, int add, t_point king)
+int				check_for_check(char **board, int add, t_point king, int move)
 {
 	t_point		tracker;
 	int			check;
@@ -31,7 +31,7 @@ int				check_for_check(char **board, int add, t_point king)
 			if (board[tracker.y][tracker.x] == 'Q' + add)
 				check += check_queen_if_hit(board, tracker, king);
 			if (board[tracker.y][tracker.x] == 'P' + add)
-				check += check_pawn_if_hit(tracker, king);
+				check += check_pawn_if_hit(tracker, king, move, board[king.y][king.x]);
 			if (check != 0)
 				return (-1);
 		}
