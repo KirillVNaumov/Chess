@@ -29,13 +29,13 @@ int     check(t_chess *chess, t_move *move, char *line)
         (chess->to_move % 2 == 1 && \
         check_for_check(arr, add, find_kings(arr, 'k'), chess->to_move) == -1))
     {
-        if (move->if_check == 0)
+        if (move->if_check == 0 && move->if_mate == 0)
         {
             ft_printf("%s: Invalid: Move does not exist\n", line);
             return (-1);
         }
     }
-    else if (move->if_check == 1)
+    else if (move->if_check == 1 || move->if_mate == 1)
     {
         ft_printf("%s: Invalid: Move does not exist\n", line);
         return (-1);

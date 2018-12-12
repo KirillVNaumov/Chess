@@ -1,9 +1,8 @@
-1. Check
-2. Mate
-3. Draws (!!!)
+1. Mate
+2. Draws (!!!)
 	- Stalemate
 	- Insufficient Material
 	- Threefold repetition
 	- Draw by acceptence
 	- Fifty-move rule
-4. Specification
+3. Specification

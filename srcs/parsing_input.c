@@ -1,5 +1,21 @@
 # include "chess.h"
 
+int		ft_numchar(char *str, char to_find)
+{
+	int		i;
+	int		count;
+
+	i = 0;
+	count = 0;
+	while (str[i])
+	{
+		if (str[i] == to_find)
+			++count;
+		++i;
+	}
+	return (count);
+}
+
 int		parse_for_piece(char **line, t_move *move)
 {
 	if (**line == 'R' || **line == 'B' || **line == 'N' || \
@@ -14,15 +30,26 @@ int		parse_for_piece(char **line, t_move *move)
 
 void	parse_for_specification_and_takes(char **line, t_move *move)
 {
+	int		check;
+	char	to_find;
+
 	if (ft_strlen(*line) > 2)
 		if (!(move->piece >= 'a' && move->piece <= 'h'))
 		{
-			if (**line >= 'a' && **line <= 'h')
+			check = 0;
+			to_find = 'a';
+			while (to_find <= 'h')
+				check += ft_numchar((*line), to_find++);
+			if (check == 2 && **line >= 'a' && **line <= 'h')
 			{
 				move->specification_letter = **line;
 				++(*line);
 			}
-			if (**line >= '1' && **line <= '8')
+			check = 0;
+			to_find = '1';
+			while (to_find <= '8')
+				check += ft_numchar((*line), to_find++);
+			if (check == 2 && **line >= '1' && **line <= '8')
 			{
 				move->specification_number = **line;
 				++(*line);
