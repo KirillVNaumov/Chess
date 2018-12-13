@@ -24,6 +24,7 @@
 # define CRED  "\x1B[31m"
 # define CBLUE  "\x1B[34m"
 # define CPINK  "\x1B[35m"
+# define CTURQ  "\x1B[36m"
 # define CWHITE  "\x1B[39m"
 # define CBLACK  "\x1B[30m"
 # define CBBLUE "\x1B[46m"
@@ -54,6 +55,12 @@ typedef struct          s_notation
     char                *move;
     struct s_notation   *next;
 }                       t_notation;
+
+typedef struct          s_matrices
+{
+    char                **board;
+    struct s_matrices   *next;
+}                       t_matrices;
 
 typedef struct          s_info
 {

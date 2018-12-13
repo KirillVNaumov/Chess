@@ -40,19 +40,34 @@ int     check_takes(t_chess *chess, t_move *move)
 
 int     check_for_move(t_chess *chess, t_move *move)
 {
-    int     i;
-    int     j;
-    int     count;
-    int     add;
+    int         i;
+    int         j;
+    int         count;
+    int         add;
+    t_point     specification;
 
     i = -1;
     count = 0;
     add = define_move(chess);
+    if (move->specification_number != '-')
+        specification.y = move->specification_number - '1';
+    if (move->specification_letter != '-')
+        specification.x = move->specification_letter - 'a';
+    if (chess->to_move % 2 == 1)
+        specification.y = 7 - specification.y;
+    if (chess->to_move % 2 == 0)
+        specification.x = 7 - specification.x;
     while (chess->board[++i])
     {
+        if (move->specification_number != '-' && \
+            i != specification.y)
+            continue ;
         j = -1;
         while (chess->board[i][++j])
         {
+            if (move->specification_letter != '-' && \
+                j != specification.x)
+                continue ;
             if (move->piece == 'R' && chess->board[i][j] == move->piece + add)
             {
                 if (check_rook_move(chess, move, i, j) == 1)
@@ -112,11 +127,8 @@ int     check_for_move(t_chess *chess, t_move *move)
     if (count == 0)
         return (-1);
     if (count > 1)
-    {
         if (move->specification_letter == '-' && move->specification_number == '-')
             return (-1);
-        // check_for_specification(chess, move);
-    }
     return (1);
 }
 

@@ -16,8 +16,12 @@ void    regular_chess_board(t_chess *chess)
     chess->board[7][7] = 'R';
     chess->board[0][1] = 'n';
     chess->board[0][6] = 'n';
-    chess->board[7][1] = 'N';
-    chess->board[7][6] = 'N';
+    // chess->board[7][1] = 'N';
+    // chess->board[7][6] = 'N';
+
+    chess->board[4][3] = 'N';
+    chess->board[5][2] = 'N';
+
     chess->board[0][2] = 'b';
     chess->board[0][5] = 'b';
     chess->board[7][2] = 'B';
